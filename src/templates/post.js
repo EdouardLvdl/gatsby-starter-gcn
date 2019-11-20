@@ -1,5 +1,4 @@
 import React from 'react'
-import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import config from '../utils/siteConfig'
 import Layout from '../components/Layout'
@@ -46,44 +45,5 @@ const PostTemplate = ({ data, pageContext }) => {
     </Layout>
   )
 }
-
-export const query = graphql`
-  query($slug: String!) {
-    contentfulPost(slug: { eq: $slug }) {
-      title
-      slug
-      metaDescription {
-        internal {
-          content
-        }
-      }
-      publishDate(formatString: "MMMM DD, YYYY")
-      publishDateISO: publishDate(formatString: "YYYY-MM-DD")
-      tags {
-        title
-        id
-        slug
-      }
-      heroImage {
-        title
-        fluid(maxWidth: 1800) {
-          ...GatsbyContentfulFluid_withWebp_noBase64
-        }
-        ogimg: resize(width: 1800) {
-          src
-          width
-          height
-        }
-      }
-      body {
-        childMarkdownRemark {
-          timeToRead
-          html
-          excerpt
-        }
-      }
-    }
-  }
-`
 
 export default PostTemplate

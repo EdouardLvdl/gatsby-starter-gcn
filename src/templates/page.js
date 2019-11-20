@@ -1,5 +1,4 @@
 import React from 'react'
-import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import config from '../utils/siteConfig'
 import Layout from '../components/Layout'
@@ -8,9 +7,9 @@ import PageTitle from '../components/PageTitle'
 import PageBody from '../components/PageBody'
 import SEO from '../components/SEO'
 
-const PageTemplate = ({ data }) => {
-  const { title, slug, body } = data.contentfulPage
-  const postNode = data.contentfulPage
+const PageTemplate = ({ pageContext }) => {
+  const { title, slug, body } = pageContext
+  const postNode = pageContext
 
   return (
     <Layout>
@@ -26,25 +25,5 @@ const PageTemplate = ({ data }) => {
     </Layout>
   )
 }
-
-export const query = graphql`
-  query($slug: String!) {
-    contentfulPage(slug: { eq: $slug }) {
-      title
-      slug
-      metaDescription {
-        internal {
-          content
-        }
-      }
-      body {
-        childMarkdownRemark {
-          html
-          excerpt
-        }
-      }
-    }
-  }
-`
 
 export default PageTemplate
